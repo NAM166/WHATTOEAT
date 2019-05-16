@@ -79,7 +79,7 @@ $(function () {
 
         ajaxText.show();
 
-        var url = "/admin/shop/AddNewCategory";
+        var url = "/admin/eatery/AddNewCategory";
 
         $.post(url, { catName: catName }, function (data) {
 
@@ -110,7 +110,7 @@ $(function () {
                     var toAppend = $("table#pages tbody tr:last").clone();
                     toAppend.attr("id", "id_" + data);
                     toAppend.find("#item_Name").val(catName);
-                    toAppend.find("a.delete").attr("href", "/admin/shop/DeleteCategory/" + data);
+                    toAppend.find("a.delete").attr("href", "/admin/eatery/DeleteCategory/" + data);
                     table.append(toAppend);
                     table.sortable("refresh");
                 }
@@ -130,7 +130,7 @@ $(function () {
         placeholder: "ui-state-highlight",
         update: function () {
             var ids = $("table#pages tbody").sortable("serialize");
-            var url = "/Admin/Shop/ReorderCategories";
+            var url = "/Admin/Eatery/ReorderCategories";
 
             $.post(url, ids, function (data) {
             });
@@ -173,7 +173,7 @@ $(function () {
         var ajaxdiv = $this.parent().find(".ajaxdivtd");
         var newCatName = $this.val();
         var id = $this.parent().parent().attr("id").substring(3);
-        var url = "/admin/shop/RenameCategory";
+        var url = "/admin/eatery/RenameCategory";
 
         if (newCatName.length < 2) {
             alert("Category name must be at least 2 characters long.");

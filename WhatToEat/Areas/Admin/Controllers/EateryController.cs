@@ -35,7 +35,7 @@ namespace WhatToEat.Areas.Admin.Controllers
             return View(categoryVMList);
         }
 
-        // POST: Admin/Shop/AddNewCategory
+        // POST: Admin/Eatery/AddNewCategory
         [HttpPost]
         public string AddNewCategory(string catName)
         {
@@ -68,7 +68,7 @@ namespace WhatToEat.Areas.Admin.Controllers
             return id;
         }
 
-        // POST: Admin/Shop/ReorderCategories
+        // POST: Admin/Eatery/ReorderCategories
         [HttpPost]
         public void ReorderCategories(int[] id)
         {
@@ -94,7 +94,7 @@ namespace WhatToEat.Areas.Admin.Controllers
 
         }
 
-        // GET: Admin/Shop/DeleteCategory/id
+        // GET: Admin/Eatery/DeleteCategory/id
         public ActionResult DeleteCategory(int id)
         {
             using (Db db = new Db())
@@ -113,7 +113,7 @@ namespace WhatToEat.Areas.Admin.Controllers
             return RedirectToAction("Categories");
         }
 
-        // POST: Admin/Shop/RenameCategory
+        // POST: Admin/Eatery/RenameCategory
         [HttpPost]
         public string RenameCategory(string newCatName, int id)
         {
@@ -138,7 +138,7 @@ namespace WhatToEat.Areas.Admin.Controllers
             return "ok";
         }
 
-        // GET: Admin/Shop/AddProduct
+        // GET: Admin/Eatery/AddProduct
         [HttpGet]
         public ActionResult AddProduct()
         {
@@ -155,7 +155,7 @@ namespace WhatToEat.Areas.Admin.Controllers
             return View(model);
         }
 
-        // POST: Admin/Shop/AddProduct
+        // POST: Admin/Eatery/AddProduct
         [HttpPost]
         public ActionResult AddProduct(ProductVM model, HttpPostedFileBase file)
         {
@@ -286,7 +286,7 @@ namespace WhatToEat.Areas.Admin.Controllers
             return RedirectToAction("AddProduct");
         }
 
-        // GET: Admin/Shop/Products
+        // GET: Admin/Eatery/Products
         public ActionResult Products(int? page, int? catId)
         {
             // Declare a list of ProductVM
@@ -318,7 +318,7 @@ namespace WhatToEat.Areas.Admin.Controllers
             return View(listOfProductVM);
         }
 
-        // GET: Admin/Shop/EditProduct/id
+        // GET: Admin/Eatery/EditProduct/id
         [HttpGet]
         public ActionResult EditProduct(int id)
         {
@@ -351,7 +351,7 @@ namespace WhatToEat.Areas.Admin.Controllers
             return View(model);
         }
 
-        // POST: Admin/Shop/EditProduct/id
+        // POST: Admin/Eatery/EditProduct/id
         [HttpPost]
         public ActionResult EditProduct(ProductVM model, HttpPostedFileBase file)
         {
@@ -474,7 +474,7 @@ namespace WhatToEat.Areas.Admin.Controllers
             return RedirectToAction("EditProduct");
         }
 
-        // GET: Admin/Shop/DeleteProduct/id
+        // GET: Admin/Eatery/DeleteProduct/id
         public ActionResult DeleteProduct(int id)
         {
             // Delete product from DB
@@ -497,7 +497,7 @@ namespace WhatToEat.Areas.Admin.Controllers
             return RedirectToAction("Products");
         }
 
-        // POST: Admin/Shop/SaveGalleryImages
+        // POST: Admin/Eatery/SaveGalleryImages
         [HttpPost]
         public void SaveGalleryImages(int id)
         {
@@ -532,7 +532,7 @@ namespace WhatToEat.Areas.Admin.Controllers
 
         }
 
-        // POST: Admin/Shop/DeleteImage
+        // POST: Admin/Eatery/DeleteImage
         [HttpPost]
         public void DeleteImage(int id, string imageName)
         {
@@ -546,7 +546,7 @@ namespace WhatToEat.Areas.Admin.Controllers
                 System.IO.File.Delete(fullPath2);
         }
 
-        // GET: Admin/Shop/Orders
+        // GET: Admin/Eatery/Orders
         public ActionResult Orders()
         {
             // Init list of OrdersForAdminVM
