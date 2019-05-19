@@ -11,7 +11,6 @@ namespace WhatToEat.Controllers
 {
     public class EateryController : Controller
     {
-
         // GET: Eatery
         public ActionResult Index()
         {

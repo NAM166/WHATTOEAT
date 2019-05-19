@@ -14,6 +14,7 @@ using WhatToEat.Models.ViewModels.Eatery;
 
 namespace WhatToEat.Controllers
 {
+
     public class AccountController : Controller
     {
         // GET: Account

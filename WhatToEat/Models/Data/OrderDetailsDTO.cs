@@ -7,6 +7,7 @@ using System.Web;
 
 namespace WhatToEat.Models.Data
 {
+    [Table("tblOrderDetails")]
     public class OrderDetailsDTO
     {
         [Key]

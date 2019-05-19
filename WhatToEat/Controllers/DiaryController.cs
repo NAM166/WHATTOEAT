@@ -10,15 +10,14 @@ using WhatToEat.Models.ViewModels.Diary;
 namespace WhatToEat.Controllers
 {
     public class DiaryController : Controller
-    {
-        // GET: Diary
+    { // GET: Diary
         public ActionResult Index()
         {
             // Init the Diary list
-            var diary = Session["diary"] as List<DiaryVM> ?? new List<DiaryVM>();
+            var Diary = Session["Diary"] as List<DiaryVM> ?? new List<DiaryVM>();
 
-            // Check if Diary is empty
-            if (diary.Count == 0 || Session["diary"] == null)
+            // Check if diary is empty
+            if (Diary.Count == 0 || Session["diary"] == null)
             {
                 ViewBag.Message = "Your diary is empty.";
                 return View();
@@ -28,7 +27,7 @@ namespace WhatToEat.Controllers
 
             decimal total = 0m;
 
-            foreach (var item in diary)
+            foreach (var item in Diary)
             {
                 total += item.Total;
             }
@@ -36,7 +35,7 @@ namespace WhatToEat.Controllers
             ViewBag.GrandTotal = total;
 
             // Return view with list
-            return View(diary);
+            return View(Diary);
         }
 
         public ActionResult DiaryPartial()
@@ -47,28 +46,28 @@ namespace WhatToEat.Controllers
             // Init quantity
             int qty = 0;
 
-            // Init calorie
-            decimal calorie = 0m;
+            // Init Calorie
+            decimal Calorie = 0m;
 
-            // Check for Diary session
+            // Check for diary session
             if (Session["diary"] != null)
             {
-                // Get total qty and calorie
+                // Get total qty and Calorie
                 var list = (List<DiaryVM>)Session["diary"];
 
                 foreach (var item in list)
                 {
                     qty += item.Quantity;
-                    calorie += item.Quantity * item.Calorie;
+                    Calorie += item.Quantity * item.Calorie;
                 }
 
                 model.Quantity = qty;
-                model.Calorie = calorie;
+                model.Calorie = Calorie;
 
             }
             else
             {
-                // Or set qty and calorie to 0
+                // Or set qty and Calorie to 0
                 model.Quantity = 0;
                 model.Calorie = 0m;
             }
@@ -79,7 +78,7 @@ namespace WhatToEat.Controllers
 
         public ActionResult AddToDiaryPartial(int id)
         {
-            // Init DiaryVM list
+            // Init diaryVM list
             List<DiaryVM> diary = Session["diary"] as List<DiaryVM> ?? new List<DiaryVM>();
 
             // Init DiaryVM
@@ -112,22 +111,22 @@ namespace WhatToEat.Controllers
                 }
             }
 
-            // Get total qty and calorie and add to model
+            // Get total qty and Calorie and add to model
 
             int qty = 0;
-            decimal calorie = 0m;
+            decimal Calorie = 0m;
 
             foreach (var item in diary)
             {
                 qty += item.Quantity;
-                calorie += item.Quantity * item.Calorie;
+                Calorie += item.Quantity * item.Calorie;
             }
 
             model.Quantity = qty;
-            model.Calorie = calorie;
+            model.Calorie = Calorie;
 
-            // Save diary back to session
-            Session["diary"] = diary;
+            // Save Diary back to session
+            Session["Diary"] = diary;
 
             // Return partial view with model
             return PartialView(model);
@@ -137,7 +136,7 @@ namespace WhatToEat.Controllers
         public JsonResult IncrementProduct(int productId)
         {
             // Init Diary list
-            List<DiaryVM> Diary = Session["diary"] as List<DiaryVM>;
+            List<DiaryVM> Diary = Session["Diary"] as List<DiaryVM>;
 
             using (Db db = new Db())
             {
@@ -148,7 +147,7 @@ namespace WhatToEat.Controllers
                 model.Quantity++;
 
                 // Store needed data
-                var result = new { qty = model.Quantity, calorie = model.Calorie };
+                var result = new { qty = model.Quantity, Calorie = model.Calorie };
 
                 // Return json with data
                 return Json(result, JsonRequestBehavior.AllowGet);
@@ -160,7 +159,7 @@ namespace WhatToEat.Controllers
         public ActionResult DecrementProduct(int productId)
         {
             // Init Diary
-            List<DiaryVM> Diary = Session["diary"] as List<DiaryVM>;
+            List<DiaryVM> Diary = Session["Diary"] as List<DiaryVM>;
 
             using (Db db = new Db())
             {
@@ -179,7 +178,7 @@ namespace WhatToEat.Controllers
                 }
 
                 // Store needed data
-                var result = new { qty = model.Quantity, calorie = model.Calorie };
+                var result = new { qty = model.Quantity, Calorie = model.Calorie };
 
                 // Return json
                 return Json(result, JsonRequestBehavior.AllowGet);
@@ -191,7 +190,7 @@ namespace WhatToEat.Controllers
         public void RemoveProduct(int productId)
         {
             // Init Diary list
-            List<DiaryVM> Diary = Session["diary"] as List<DiaryVM>;
+            List<DiaryVM> Diary = Session["Diary"] as List<DiaryVM>;
 
             using (Db db = new Db())
             {
@@ -206,7 +205,7 @@ namespace WhatToEat.Controllers
 
         public ActionResult PaypalPartial()
         {
-            List<DiaryVM> Diary = Session["diary"] as List<DiaryVM>;
+            List<DiaryVM> Diary = Session["Diary"] as List<DiaryVM>;
 
             return PartialView(Diary);
         }
@@ -216,7 +215,7 @@ namespace WhatToEat.Controllers
         public void PlaceOrder()
         {
             // Get Diary list
-            List<DiaryVM> Diary = Session["diary"] as List<DiaryVM>;
+            List<DiaryVM> Diary = Session["Diary"] as List<DiaryVM>;
 
             // Get username
             string username = User.Identity.Name;
@@ -261,15 +260,15 @@ namespace WhatToEat.Controllers
             }
 
             // Email admin
-            var client = new SmtpClient("smtp.mailtrap.io", 2525)
+            var client = new SmtpClient("mailtrap.io", 2525)
             {
-                Credentials = new NetworkCredential("d58b8238cd109a", "f337b82f2325b9"),
+                Credentials = new NetworkCredential("21f57cbb94cf88", "e9d7055c69f02d"),
                 EnableSsl = true
             };
-            client.Send("from@example.com", "to@example.com", "Hello world", "testbody");
+            client.Send("admin@example.com", "admin@example.com", "New Order", "You have a new order. Order number " + orderId);
 
             // Reset session
-            Session["diary"] = null;
+            Session["Diary"] = null;
         }
     }
 }

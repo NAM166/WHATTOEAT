@@ -78,9 +78,9 @@ else
 
     <div class="paypaldiv">
         <form class="paypalform" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
-            <input type="hidden" name="cmd" value="_diary">
+            <input type="hidden" name="cmd" value="_cart">
             <input type="hidden" name="upload" value="1">
-            <input type="hidden" name="business" value="niallmcclelland166-facilitator@hotmail.com">
+            <input type="hidden" name="business" value="jultranet-facilitator@gmail.com">
 
             @foreach (var item in Model)
             {
@@ -112,13 +112,13 @@ $(function () {
         e.preventDefault();
 
         var productId = $(this).data("id");
-        var url = "/diary/IncrementProduct";
+        var url = "/cart/IncrementProduct";
 
         $.getJSON(url, { productId: productId }, function (data) {
 
             $("td.qty" + productId).html(data.qty);
 
-            var calorie = data.qty * data.calorie
+            var calorie = data.qty * data.calorie;
             var calorieHtml = "$" + calorie.toFixed(2);
 
             $("td.total" + productId).html(calorieHtml);
@@ -128,7 +128,7 @@ $(function () {
 
             $("td.grandtotal span").text(grandtotal);
         }).done(function (data) {
-            var url2 = "/diary/PaypalPartial";
+            var url2 = "/cart/PaypalPartial";
 
             $.get(url2, { }, function (data) {
                 $('div.paypaldiv').html(data);
@@ -147,7 +147,7 @@ $(function () {
 
         var $this = $(this);
         var productId = $(this).data("id");
-        var url = "/diary/DecrementProduct";
+        var url = "/cart/DecrementProduct";
 
         $.getJSON(url, { productId: productId }, function (data) {
             if (data.qty == 0) {
@@ -170,7 +170,7 @@ $(function () {
             }
 
         }).done(function (data) {
-            var url2 = "/diary/PaypalPartial";
+            var url2 = "/cart/PaypalPartial";
 
             $.get(url2, {}, function (data) {
                 $('div.paypaldiv').html(data);
@@ -189,7 +189,7 @@ $(function () {
 
         var $this = $(this);
         var productId = $(this).data("id");
-        var url = "/diary/RemoveProduct";
+        var url = "/cart/RemoveProduct";
 
         $.get(url, { productId: productId }, function (data) {
             location.reload();
@@ -207,7 +207,7 @@ $(function () {
 
         var $this = $(this);
 
-        var url = "/diary/PlaceOrder";
+        var url = "/cart/PlaceOrder";
 
         $(".ajaxbg").show();
 
