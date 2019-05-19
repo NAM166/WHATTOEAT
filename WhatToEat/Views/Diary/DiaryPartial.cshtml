@@ -1,0 +1,7 @@
+﻿@model WhatToEat.Models.ViewModels.Diary.DiaryVM
+
+<div class="ajaxcart" style="color:white;">
+    Your diary: @Model.Quantity item(s) - $@Model.Calorie
+    <br />
+    @Html.ActionLink("Checkout", "Index")
+</div>

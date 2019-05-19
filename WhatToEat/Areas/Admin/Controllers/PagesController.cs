@@ -8,40 +8,38 @@ using WhatToEat.Models.ViewModels.Pages;
 
 namespace WhatToEat.Areas.Admin.Controllers
 {
-
+    [Authorize(Roles = "Admin")]
     public class PagesController : Controller
     {
         // GET: Admin/Pages
         public ActionResult Index()
         {
-            // Declare list of VM
+            // Declare list of PageVM
             List<PageVM> pagesList;
 
             using (Db db = new Db())
             {
-                // Initiate the List
+                // Init the list
                 pagesList = db.Pages.ToArray().OrderBy(x => x.Sorting).Select(x => new PageVM(x)).ToList();
-
             }
-            // Return view with List
+
+            // Return view with list
             return View(pagesList);
         }
 
-        //Get: Admin/Pages/AddPage
+        // GET: Admin/Pages/AddPage
         [HttpGet]
         public ActionResult AddPage()
         {
             return View();
         }
 
-        //Post: Admin/Pages/AddPage
+        // POST: Admin/Pages/AddPage
         [HttpPost]
         public ActionResult AddPage(PageVM model)
         {
             // Check model state
-
             if (!ModelState.IsValid)
-
             {
                 return View(model);
             }
@@ -54,26 +52,27 @@ namespace WhatToEat.Areas.Admin.Controllers
                 // Init pageDTO
                 PageDTO dto = new PageDTO();
 
-                // DTO Title
+                // DTO title
                 dto.Title = model.Title;
-                //Check for and set slug if need be
+
+                // Check for and set slug if need be
                 if (string.IsNullOrWhiteSpace(model.Slug))
                 {
-                    slug = model.Title.Replace(" ", " ").ToLower();
+                    slug = model.Title.Replace(" ", "-").ToLower();
                 }
                 else
                 {
-                    slug = model.Slug.Replace(" ", " ").ToLower();
+                    slug = model.Slug.Replace(" ", "-").ToLower();
                 }
-                // Makesure title and slug are unique 
-                if (db.Pages.Any(x => x.Title == model.Title) || db.Pages.Any(x => x.Slug == slug))
 
+                // Make sure title and slug are unique
+                if (db.Pages.Any(x => x.Title == model.Title) || db.Pages.Any(x => x.Slug == slug))
                 {
-                    ModelState.AddModelError("", "That Title or Slug already exists.");
+                    ModelState.AddModelError("", "That title or slug already exists.");
                     return View(model);
                 }
 
-                // DTO rest
+                // DTO the rest
                 dto.Slug = slug;
                 dto.Body = model.Body;
                 dto.HasSidebar = model.HasSidebar;
@@ -82,7 +81,6 @@ namespace WhatToEat.Areas.Admin.Controllers
                 // Save DTO
                 db.Pages.Add(dto);
                 db.SaveChanges();
-
             }
 
             // Set TempData message
@@ -90,43 +88,35 @@ namespace WhatToEat.Areas.Admin.Controllers
 
             // Redirect
             return RedirectToAction("AddPage");
-
         }
 
-        //Get: Admin/Pages/EditPage/id
+        // GET: Admin/Pages/EditPage/id
         [HttpGet]
         public ActionResult EditPage(int id)
-
-
         {
-
-            //Declare pageVM
+            // Declare pageVM
             PageVM model;
 
             using (Db db = new Db())
             {
-
                 // Get the page
                 PageDTO dto = db.Pages.Find(id);
-                // confirm page exists
-                if (dto == null)
 
+                // Confirm page exists
+                if (dto == null)
                 {
-                    return Content("The Page Does Not Exist");
+                    return Content("The page does not exist.");
                 }
 
                 // Init pageVM
                 model = new PageVM(dto);
-
             }
 
-
-            // Return view with model 
-
+            // Return view with model
             return View(model);
         }
 
-        //Post: Admin/Pages/EditPage/id
+        // POST: Admin/Pages/EditPage/id
         [HttpPost]
         public ActionResult EditPage(PageVM model)
         {
@@ -135,40 +125,44 @@ namespace WhatToEat.Areas.Admin.Controllers
             {
                 return View(model);
             }
-            using (Db db = new Db())
 
+            using (Db db = new Db())
             {
-                // Get page ID
+                // Get page id
                 int id = model.Id;
+
                 // Init slug
                 string slug = "home";
 
                 // Get the page
                 PageDTO dto = db.Pages.Find(id);
 
-                //DTO title
+                // DTO the title
                 dto.Title = model.Title;
 
-                // Check for slug and set in need be
+                // Check for slug and set it if need be
                 if (model.Slug != "home")
                 {
                     if (string.IsNullOrWhiteSpace(model.Slug))
                     {
-                        slug = model.Title.Replace(" ", " ").ToLower();
+                        slug = model.Title.Replace(" ", "-").ToLower();
                     }
                     else
                     {
-                        slug = model.Title.Replace(" ", " ").ToLower();
+                        slug = model.Slug.Replace(" ", "-").ToLower();
                     }
-
                 }
 
                 // Make sure title and slug are unique
-                if (db.Pages.Where(X => X.Id != id).Any(x => x.Title == model.Title) ||
-                   db.Pages.Where(X => X.Id != id).Any(x => x.Slug == slug))
+                if (db.Pages.Where(x => x.Id != id).Any(x => x.Title == model.Title) ||
+                     db.Pages.Where(x => x.Id != id).Any(x => x.Slug == slug))
+                {
+                    ModelState.AddModelError("", "That title or slug already exists.");
+                    return View(model);
+                }
 
-                    // DTO the rest
-                    dto.Slug = slug;
+                // DTO the rest
+                dto.Slug = slug;
                 dto.Body = model.Body;
                 dto.HasSidebar = model.HasSidebar;
 
@@ -177,14 +171,13 @@ namespace WhatToEat.Areas.Admin.Controllers
             }
 
             // Set TempData message
-            TempData["sm"] = "You have edited the page!";
+            TempData["SM"] = "You have edited the page!";
 
-            // Redirect 
+            // Redirect
             return RedirectToAction("EditPage");
-
         }
 
-        //Get: Admin/Pages/PageDetails/id
+        // GET: Admin/Pages/PageDetails/id
         public ActionResult PageDetails(int id)
         {
             // Declare PageVM
@@ -192,7 +185,7 @@ namespace WhatToEat.Areas.Admin.Controllers
 
             using (Db db = new Db())
             {
-                //Get the page
+                // Get the page
                 PageDTO dto = db.Pages.Find(id);
 
                 // Confirm page exists
@@ -203,35 +196,38 @@ namespace WhatToEat.Areas.Admin.Controllers
 
                 // Init PageVM
                 model = new PageVM(dto);
-
             }
+
             // Return view with model
             return View(model);
         }
 
-        //Get: Admin/Pages/DeletePage/id
+        // GET: Admin/Pages/DeletePage/id
         public ActionResult DeletePage(int id)
         {
             using (Db db = new Db())
             {
-                //Get the Page
+                // Get the page
                 PageDTO dto = db.Pages.Find(id);
-                //Remove the Page
+
+                // Remove the page
                 db.Pages.Remove(dto);
+
                 // Save
                 db.SaveChanges();
             }
+
             // Redirect
             return RedirectToAction("Index");
         }
 
-        //Post: Admin/Pages/ReorderPages/id
+        // POST: Admin/Pages/ReorderPages
         [HttpPost]
         public void ReorderPages(int[] id)
         {
             using (Db db = new Db())
             {
-                // Set intial count 
+                // Set initial count
                 int count = 1;
 
                 // Declare PageDTO
@@ -246,13 +242,12 @@ namespace WhatToEat.Areas.Admin.Controllers
                     db.SaveChanges();
 
                     count++;
-
                 }
             }
 
         }
 
-        //Get: Admin/Pages/EditSidebar
+        // GET: Admin/Pages/EditSidebar
         [HttpGet]
         public ActionResult EditSidebar()
         {
@@ -260,19 +255,19 @@ namespace WhatToEat.Areas.Admin.Controllers
             SidebarVM model;
 
             using (Db db = new Db())
-
             {
                 // Get the DTO
                 SidebarDTO dto = db.Sidebar.Find(1);
 
-                // Init model 
+                // Init model
                 model = new SidebarVM(dto);
             }
 
-            // Return view model
+            // Return view with model
             return View(model);
         }
-        //Post: Admin/Pages/EditSidebar
+
+        // POST: Admin/Pages/EditSidebar
         [HttpPost]
         public ActionResult EditSidebar(SidebarVM model)
         {
@@ -281,20 +276,18 @@ namespace WhatToEat.Areas.Admin.Controllers
                 // Get the DTO
                 SidebarDTO dto = db.Sidebar.Find(1);
 
-                // DTO to body
+                // DTO the body
                 dto.Body = model.Body;
 
                 // Save
                 db.SaveChanges();
-
             }
 
             // Set TempData message
             TempData["SM"] = "You have edited the sidebar!";
 
-            // Redirect 
+            // Redirect
             return RedirectToAction("EditSidebar");
         }
     }
-
 }

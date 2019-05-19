@@ -10,12 +10,12 @@ using System.Web.Mvc;
 using WhatToEat.Models.Data;
 using WhatToEat.Models.ViewModels.Eatery;
 
-
 namespace WhatToEat.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class EateryController : Controller
-    { // GET: Admin/atery/Categories
+    {
+        // GET: Admin/Eatery/Categories
         public ActionResult Categories()
         {
             // Declare a list of models
@@ -579,8 +579,8 @@ namespace WhatToEat.Areas.Admin.Controllers
                         // Get product
                         ProductDTO product = db.Products.Where(x => x.Id == orderDetails.ProductId).FirstOrDefault();
 
-                        // Get product Calorie
-                        decimal Calorie = product.Calorie;
+                        // Get product calorie
+                        decimal calorie= product.Calorie;
 
                         // Get product name
                         string productName = product.Name;
@@ -589,7 +589,7 @@ namespace WhatToEat.Areas.Admin.Controllers
                         productsAndQty.Add(productName, orderDetails.Quantity);
 
                         // Get total
-                        total += orderDetails.Quantity * Calorie;
+                        total += orderDetails.Quantity * calorie;
                     }
 
                     // Add to ordersForAdminVM list
