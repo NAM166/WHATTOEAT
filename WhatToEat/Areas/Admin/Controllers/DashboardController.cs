@@ -7,7 +7,7 @@ using System.Web.Mvc;
 namespace WhatToEat.Areas.Admin.Controllers
     {
         [Authorize(Roles = "Admin")]
-        public class DasboardController : Controller
+        public class DashboardController : Controller
         {
             // GET: Admin/Dashboard
             public ActionResult Index()
