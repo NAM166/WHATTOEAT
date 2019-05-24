@@ -203,13 +203,6 @@ namespace WhatToEat.Controllers
 
         }
 
-        public ActionResult PaypalPartial()
-        {
-            List<DiaryVM> Diary = Session["Diary"] as List<DiaryVM>;
-
-            return PartialView(Diary);
-        }
-
         // POST: /Diary/PlaceOrder
         [HttpPost]
         public void PlaceOrder()
@@ -259,16 +252,6 @@ namespace WhatToEat.Controllers
                 }
             }
 
-            // Email admin
-            var client = new SmtpClient("mailtrap.io", 2525)
-            {
-                Credentials = new NetworkCredential("21f57cbb94cf88", "e9d7055c69f02d"),
-                EnableSsl = true
-            };
-            client.Send("admin@example.com", "admin@example.com", "New Order", "You have a new order. Order number " + orderId);
-
-            // Reset session
-            Session["Diary"] = null;
         }
     }
 }

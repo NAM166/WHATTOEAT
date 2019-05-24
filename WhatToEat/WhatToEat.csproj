@@ -904,7 +904,6 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\UserNavPartial.cshtml" />
     <Content Include="Views\Account\UserProfile.cshtml" />
-    <Content Include="Views\Diary\PaypalPartial.cshtml" />
     <Content Include="Views\Account\Orders.cshtml" />
   </ItemGroup>
   <ItemGroup>
