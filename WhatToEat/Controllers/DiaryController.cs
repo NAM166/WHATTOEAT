@@ -47,7 +47,7 @@ namespace WhatToEat.Controllers
             int qty = 0;
 
             // Init Calorie
-            decimal Calorie = 0m;
+            int Calorie = 0;
 
             // Check for diary session
             if (Session["diary"] != null)
@@ -69,7 +69,7 @@ namespace WhatToEat.Controllers
             {
                 // Or set qty and Calorie to 0
                 model.Quantity = 0;
-                model.Calorie = 0m;
+                model.Calorie = 0;
             }
 
             // Return partial view with model
@@ -114,7 +114,7 @@ namespace WhatToEat.Controllers
             // Get total qty and Calorie and add to model
 
             int qty = 0;
-            decimal Calorie = 0m;
+            int Calorie = 0;
 
             foreach (var item in diary)
             {

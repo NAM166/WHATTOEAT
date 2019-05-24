@@ -32,7 +32,7 @@ namespace WhatToEat.Models.ViewModels.Eatery
         public string Slug { get; set; }
         [Required]
         public string Description { get; set; }
-        public decimal Calorie { get; set; }
+        public int Calorie { get; set; }
         public string CategoryName { get; set; }
         [Required]
         public int CategoryId { get; set; }

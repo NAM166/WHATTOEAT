@@ -113,6 +113,7 @@ namespace WhatToEat.Controllers
                 {
                     FirstName = model.FirstName,
                     LastName = model.LastName,
+                    DailyCalorie = model.DailyCalorie,
                     EmailAddress = model.EmailAddress,
                     Username = model.Username,
                     Password = model.Password
@@ -243,6 +244,7 @@ namespace WhatToEat.Controllers
 
                 dto.FirstName = model.FirstName;
                 dto.LastName = model.LastName;
+                dto.DailyCalorie = model.DailyCalorie;
                 dto.EmailAddress = model.EmailAddress;
                 dto.Username = model.Username;
 
@@ -297,7 +299,7 @@ namespace WhatToEat.Controllers
                         ProductDTO product = db.Products.Where(x => x.Id == orderDetails.ProductId).FirstOrDefault();
 
                         // Get product calorie
-                        decimal calorie = product.Calorie;
+                        int calorie = product.Calorie;
 
                         // Get product name
                         string productName = product.Name;
