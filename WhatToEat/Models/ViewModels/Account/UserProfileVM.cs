@@ -18,8 +18,8 @@ namespace WhatToEat.Models.ViewModels.Account
             Id = row.Id;
             FirstName = row.FirstName;
             LastName = row.LastName;
-            DailyCalorie = row.DailyCalorie;
             EmailAddress = row.EmailAddress;
+            DailyCalorie = row.DailyCalorie;
             Username = row.Username;
             Password = row.Password;
         }
@@ -30,10 +30,10 @@ namespace WhatToEat.Models.ViewModels.Account
         [Required]
         public string LastName { get; set; }
         [Required]
-        public int DailyCalorie { get; set; }
-        [Required]
         [DataType(DataType.EmailAddress)]
         public string EmailAddress { get; set; }
+        [Required]
+        public int DailyCalorie { get; set; }
         [Required]
         public string Username { get; set; }
         public string Password { get; set; }

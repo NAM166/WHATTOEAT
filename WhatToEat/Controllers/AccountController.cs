@@ -113,8 +113,8 @@ namespace WhatToEat.Controllers
                 {
                     FirstName = model.FirstName,
                     LastName = model.LastName,
-                    DailyCalorie = model.DailyCalorie,
                     EmailAddress = model.EmailAddress,
+                    DailyCalorie = model.DailyCalorie,
                     Username = model.Username,
                     Password = model.Password
                 };
@@ -178,6 +178,41 @@ namespace WhatToEat.Controllers
             // Return partial view with model
             return PartialView(model);
         }
+
+        //public ActionResult UserCaloriePartial()
+        //{ 
+        //// Init CartVM
+        //    UserVM model = new UserVM();
+
+        //// Init quantity
+        //    int dailycalorie = 0;
+
+        //    // Check for usercalorie session
+        //    if (Session["account"] != null)
+        //    {
+        //        // Get total qty and price
+        //        var list = (List<UserVM>)Session["account"];
+
+        //        foreach (var item in list)
+        //        {
+        //            dailycalorie += item.DailyCalorie;
+                   
+        //   }
+
+        //     model.DailyCalorie = dailycalorie;
+                
+
+        //    }
+        //    else
+        //    {
+        //        // Or set qty and price to 0
+        //        model.DailyCalorie = 0;
+                
+        //    }
+
+        //    // Return partial view with model
+        //    return PartialView(model);
+        //}
 
         // GET: /account/user-profile
         [HttpGet]
@@ -244,8 +279,8 @@ namespace WhatToEat.Controllers
 
                 dto.FirstName = model.FirstName;
                 dto.LastName = model.LastName;
-                dto.DailyCalorie = model.DailyCalorie;
                 dto.EmailAddress = model.EmailAddress;
+                dto.DailyCalorie = model.DailyCalorie;
                 dto.Username = model.Username;
 
                 if (!string.IsNullOrWhiteSpace(model.Password))
