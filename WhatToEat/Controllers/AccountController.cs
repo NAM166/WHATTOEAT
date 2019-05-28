@@ -114,7 +114,6 @@ namespace WhatToEat.Controllers
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     EmailAddress = model.EmailAddress,
-                    DailyCalorie = model.DailyCalorie,
                     Username = model.Username,
                     Password = model.Password
                 };
@@ -179,40 +178,6 @@ namespace WhatToEat.Controllers
             return PartialView(model);
         }
 
-        //public ActionResult UserCaloriePartial()
-        //{ 
-        //// Init CartVM
-        //    UserVM model = new UserVM();
-
-        //// Init quantity
-        //    int dailycalorie = 0;
-
-        //    // Check for usercalorie session
-        //    if (Session["account"] != null)
-        //    {
-        //        // Get total qty and price
-        //        var list = (List<UserVM>)Session["account"];
-
-        //        foreach (var item in list)
-        //        {
-        //            dailycalorie += item.DailyCalorie;
-                   
-        //   }
-
-        //     model.DailyCalorie = dailycalorie;
-                
-
-        //    }
-        //    else
-        //    {
-        //        // Or set qty and price to 0
-        //        model.DailyCalorie = 0;
-                
-        //    }
-
-        //    // Return partial view with model
-        //    return PartialView(model);
-        //}
 
         // GET: /account/user-profile
         [HttpGet]
@@ -280,7 +245,6 @@ namespace WhatToEat.Controllers
                 dto.FirstName = model.FirstName;
                 dto.LastName = model.LastName;
                 dto.EmailAddress = model.EmailAddress;
-                dto.DailyCalorie = model.DailyCalorie;
                 dto.Username = model.Username;
 
                 if (!string.IsNullOrWhiteSpace(model.Password))
@@ -322,7 +286,7 @@ namespace WhatToEat.Controllers
                     Dictionary<string, int> productsAndQty = new Dictionary<string, int>();
 
                     // Declare total
-                    decimal total = 0m;
+                    int total = 0;
 
                     // Init list of OrderDetailsDTO
                     List<OrderDetailsDTO> orderDetailsDTO = db.OrderDetails.Where(x => x.OrderId == order.OrderId).ToList();

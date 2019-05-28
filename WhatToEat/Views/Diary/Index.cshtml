@@ -22,7 +22,7 @@ else
                 Quantity
             </th>
             <th>
-                Calorie
+                Calories
             </th>
             <th>
                 Image
@@ -31,7 +31,7 @@ else
 
             </th>
             <th>
-                Total
+                Total Calories
             </th>
             <th>
 
@@ -48,7 +48,7 @@ else
                     @Html.DisplayFor(modelItem => item.Quantity)
                 </td>
                 <td>
-                    $@Html.DisplayFor(modelItem => item.Calorie)
+                    @Html.DisplayFor(modelItem => item.Calorie)
                 </td>
                 <td>
                     <img src="/Images/Uploads/Products/@item.ProductId/Thumbs/@item.Image" />
@@ -59,7 +59,7 @@ else
                     <a href="#" class="removeproduct" data-id="@item.ProductId">Remove</a>
                 </td>
                 <td class="total@(item.ProductId)">
-                    $@Html.DisplayFor(modelItem => item.Total)
+                    @Html.DisplayFor(modelItem => item.Total)
                 </td>
             </tr>
         }
@@ -71,12 +71,12 @@ else
             <td></td>
             <td></td>
             <td></td>
-            <td class="grandtotal"><b>Grand total</b> $<span>@ViewBag.GrandTotal</span></td>
+            <td class="grandtotal"><b>Total Calories</b> <span>@ViewBag.GrandTotal</span></td>
         </tr>
 
     </table>
     <br />
-    <a href="#" class="placeorder btn btn-primary pull-right">Checkout</a>
+    <a href="#" class="placeorder btn btn-primary pull-right">Select</a>
 
 }
 

@@ -15,7 +15,7 @@
             Description
         </th>
         <th>
-            Calorie
+            Calories
         </th>
         <th>
             Image
@@ -33,7 +33,7 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                $@Html.DisplayFor(modelItem => item.Calorie)
+                @Html.DisplayFor(modelItem => item.Calorie)
             </td>
             <td>
                 <a href="/eatery/product-details/@item.Slug">

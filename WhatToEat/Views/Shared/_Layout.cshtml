@@ -49,6 +49,7 @@
                         }
                     }
                 </ul>
+                  
 
                 @if (Request.IsAuthenticated && User.IsInRole("Admin"))
                 {
@@ -64,9 +65,14 @@
                             @Html.Action("DiaryPartial", "Diary")
                         </ul>
                     }
-                }
 
+                    <ul class="navbar-collapse collapse navbar-right">
+                        @Html.ActionLink("Your Daily Allowed Calories", "Account")
+                    </ul>
 
+               }
+
+                
             </div>
         </div>
     </div>

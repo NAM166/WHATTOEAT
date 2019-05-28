@@ -41,6 +41,12 @@ span.ajaxmsg {
     top: 5px;
 }
 
+    ajaxcalorie {
+    position: relative;
+    right: 60px;
+    top: 5px;
+}
+
 .ib {
     display: inline-block !important;
 }

@@ -564,7 +564,7 @@ namespace WhatToEat.Areas.Admin.Controllers
                     Dictionary<string, int> productsAndQty = new Dictionary<string, int>();
 
                     // Declare total
-                    decimal total = 0m;
+                    int total = 0;
 
                     // Init list of OrderDetailsDTO
                     List<OrderDetailsDTO> orderDetailsList = db.OrderDetails.Where(X => X.OrderId == order.OrderId).ToList();
@@ -580,7 +580,7 @@ namespace WhatToEat.Areas.Admin.Controllers
                         ProductDTO product = db.Products.Where(x => x.Id == orderDetails.ProductId).FirstOrDefault();
 
                         // Get product calorie
-                        decimal calorie= product.Calorie;
+                        int calorie= product.Calorie;
 
                         // Get product name
                         string productName = product.Name;

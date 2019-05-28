@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Web.Mvc;
 using WhatToEat.Models.Data;
+using WhatToEat.Models.ViewModels.DailyCalorie;
 using WhatToEat.Models.ViewModels.Diary;
 
 namespace WhatToEat.Controllers
@@ -19,13 +20,13 @@ namespace WhatToEat.Controllers
             // Check if diary is empty
             if (Diary.Count == 0 || Session["diary"] == null)
             {
-                ViewBag.Message = "Your diary is empty.";
+                ViewBag.Message = "Your Diary is Empty.";
                 return View();
             }
 
             // Calculate total and save to ViewBag
 
-            decimal total = 0m;
+            int total = 0;
 
             foreach (var item in Diary)
             {
@@ -127,6 +128,41 @@ namespace WhatToEat.Controllers
 
             // Save Diary back to session
             Session["Diary"] = diary;
+
+            // Return partial view with model
+            return PartialView(model);
+        }
+
+        public ActionResult DailyCaloriePartial()
+        {
+            // Init DiaryVM
+           DailyCalorieVM model = new DailyCalorieVM();
+
+            // Init dailycalorie
+            int dailycalorie = 0;
+
+         
+            // Check for diary session
+            if (Session["diary"] != null)
+            {
+                // Get total qty and Calorie
+                var list = (List<DailyCalorieVM>)Session["diary"];
+
+                foreach (var item in list)
+                {
+                    dailycalorie += item.DailyCalorie;
+     
+                }
+
+                model.DailyCalorie = dailycalorie;
+
+            }
+            else
+            {
+                // Or set qty and Calorie to 0
+                model.DailyCalorie = 0;
+  
+            }
 
             // Return partial view with model
             return PartialView(model);
